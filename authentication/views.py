@@ -1,0 +1,39 @@
+from django.shortcuts import render
+from rest_framework import generics
+from .models import (
+    Roles,
+    UserRoles,
+)
+from .serializers import (
+    RolesSerializer,
+    UserSerializer,
+    UserRolesSerializer,
+)
+from django.contrib.auth.models import User
+from rest_framework.permissions import IsAuthenticated
+from drf_spectacular.utils import extend_schema
+
+@extend_schema(tags=['Usuarios'])
+class RolesView(generics.ListCreateAPIView):
+    queryset = Roles.objects.all()
+    serializer_class = RolesSerializer
+
+@extend_schema(tags=['Usuarios'])
+class ManageRolesView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Roles.objects.all()
+    serializer_class = RolesSerializer
+
+@extend_schema(tags=['Usuarios'])
+class UserView(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+@extend_schema(tags=['Usuarios'])
+class ManageUserView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+@extend_schema(tags=['Usuarios'])
+class UserRolesView(generics.ListCreateAPIView):
+    queryset = UserRoles.objects.all()
+    serializer_class = UserRolesSerializer  
